@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "modutilities",
+  "version": "${version}",
+  "name": "ModUtilities",
+  "description": "A quality of life mod for Moderators and Admins on the DiamondFire Server.",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/modutilities/high-res-icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "net.sapfii.modutilities.ModUtilities"
+    ],
+    "modmenu": [
+      "net.sapfii.modutilities.config.ModUtilsModModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "modutilities.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}",
+    "sapscreens": "*"
+  }
+}
