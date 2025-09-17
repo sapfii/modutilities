@@ -10,7 +10,6 @@ base {
     archivesName = project.archives_base_name
 }
 
-
 fabricApi {
     configureDataGeneration {
         client = true
@@ -26,6 +25,11 @@ repositories {
         name = "Terraformers"
         url = "https://maven.terraformersmc.com/"
     }
+    // Modrinth
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
 }
 
 dependencies {
@@ -35,7 +39,9 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation name: "sapscreens-${project.sapscreens_version}"
+
+    // Screens Library
+    modImplementation("maven.modrinth:sapscreens:${project.sapscreens_version}")
 
     // ModMenu
     modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
@@ -95,9 +101,5 @@ publishing {
 
     // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
     }
 }
