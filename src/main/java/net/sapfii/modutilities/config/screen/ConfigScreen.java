@@ -51,7 +51,7 @@ public class ConfigScreen extends WidgetContainerScreen {
                                     int index = constants.indexOf(ModUtilsConfig.config.logDirection);
                                     index = ModUtilities.wrap(index + 1, constants.size());
                                     ModUtilsConfig.config.logDirection = constants.get(index);
-                                    button.withText(Text.literal("Report Overlay Style - " + ModUtilsConfig.config.logDirection));
+                                    button.withText(Text.literal("Log Screen Scroll Direction - " + ModUtilsConfig.config.logDirection));
                                 }),
                                 new ButtonWidget(Text.literal("Use History Screen - " + ModUtilsConfig.config.useHistoryScreen), (button) -> {
                                     ModUtilsConfig.config.useHistoryScreen = !ModUtilsConfig.config.useHistoryScreen;

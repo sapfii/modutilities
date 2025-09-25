@@ -34,6 +34,7 @@ public class SetRankAutocomplete implements ClientCommandListener, ClientPacketL
         if (matcher.find()) {
             List<Text> siblings = msgText.getSiblings();
             for (Text sibling : siblings) {
+                HoverEvent.ShowText text = new HoverEvent.ShowText(Text.literal("hi"));
                 if (sibling.getStyle().getHoverEvent() instanceof HoverEvent.ShowText(Text value)) {
                     String code = Objects.requireNonNull(value.getString());
                     ScreenHandler.openScreen(new ChatScreen("/" + lastSetRankCommand + " " + code));
