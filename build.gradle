@@ -47,8 +47,8 @@ dependencies {
     implementation("org.apache.httpcomponents:httpclient:4.5.13")
 
     // Screens Library
-//    modImplementation("maven.modrinth:scelli:${project.scelli_version}")
-    modImplementation(name: "Scelli-${project.scelli_version}")
+    modImplementation("maven.modrinth:scelli:${project.scelli_version}")
+//    modImplementation(name: "Scelli-${project.scelli_version}")
 
     // ModMenu
     modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
