@@ -66,5 +66,6 @@ public class ReportWidget extends ContainerWidget<ReportWidget> {
     @Override
     public void onClick(int mouseX, int mouseY) {
         super.onClick(mouseX, mouseY);
+        if (hovered) ReportOverlayFeature.clickedReport(data);
     }
 }

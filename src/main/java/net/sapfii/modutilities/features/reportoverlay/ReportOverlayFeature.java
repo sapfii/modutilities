@@ -86,6 +86,8 @@ public class ReportOverlayFeature extends Feature implements RenderedFeature, Pa
 
     @Override
     public void renderMain(DrawContext context, int mouseX, int mouseY, float delta) {
+        withDimensions(10000, 100000, true);
+//        System.out.println("is this even rendering");
         if (getWidgets().isEmpty()) return;
         if (getWidgets().getFirst().opacity() == 0) getWidgets().removeFirst();
         int x = 0;
@@ -114,8 +116,8 @@ public class ReportOverlayFeature extends Feature implements RenderedFeature, Pa
 
     @Override
     public void onKeyBindPress(KeyBinding keyBind) {
-        if (keyBind.equals(ModUtilsKeyBinds.DISMISS_REPORT) && !getWidgets().isEmpty() && getWidgets().getFirst().opacity() >= 175) {
-            getWidgets().getFirst().withOpacity(0, false);
+        if (keyBind.equals(ModUtilsKeyBinds.DISMISS_REPORT) && !getWidgets().isEmpty()) {
+            getWidgets().removeFirst();
             ModUtilities.playSound(ModUtilsSounds.REPORT_DISMISS, 1f);
         }
     }
