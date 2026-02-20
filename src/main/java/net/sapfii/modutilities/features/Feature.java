@@ -1,3 +1,5 @@
 package net.sapfii.modutilities.features;
 
-public abstract class Feature {}
+import net.velli.scelli.widget.widgets.containers.ContainerWidget;
+
+public abstract class Feature extends ContainerWidget<Feature> {}

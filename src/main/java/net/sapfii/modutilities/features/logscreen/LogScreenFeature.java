@@ -59,4 +59,9 @@ public class LogScreenFeature extends Feature implements PacketListeningFeature,
         }
         return PacketResult.PASS;
     }
+
+    @Override
+    public LogScreenFeature getWidget() {
+        return this;
+    }
 }

@@ -18,6 +18,7 @@ import net.sapfii.modutilities.keybinds.ModUtilsKeyBinds;
 import net.sapfii.modutilities.sounds.ModUtilsSounds;
 import net.velli.scelli.widget.interfaces.ClickableWidget;
 import net.velli.scelli.widget.widgets.Widget;
+import net.velli.scelli.widget.widgets.Widgets;
 import org.joml.Vector2f;
 
 import java.util.List;
@@ -72,7 +73,7 @@ public class ReportOverlayFeature extends Feature implements RenderedFeature, Pa
                     matcher.group(3),
                     matcher.group(4)
             );
-            ReportWidget widget = ReportWidget.create(newReport);
+            ReportWidget widget = Widgets.create(ReportWidget::new).getWidget().withData(newReport);
             widget.withOpacity(1, true);
             widget.withOpacity(255, false);
             widgets.addFirst(widget);
@@ -84,19 +85,9 @@ public class ReportOverlayFeature extends Feature implements RenderedFeature, Pa
     }
 
     @Override
-    public void onClick(float mouseX, float mouseY, boolean active) {
-        this.getWidgets().forEach((widget) -> {
-            if (widget instanceof ClickableWidget cw) {
-                Vector2f alignmentOffsets = widget.position().alignmentOffsets(this);
-                cw.onClick(mouseX - (float)widget.x() - alignmentOffsets.x, mouseY - (float)widget.y() - alignmentOffsets.y, true);
-            }
-        });
-    }
-
-    @Override
-    public void render(DrawContext context, float mouseX, float mouseY) {
+    public void renderMain(DrawContext context, int mouseX, int mouseY, float delta) {
         if (getWidgets().isEmpty()) return;
-        if (getWidgets().getFirst().renderedOpacity() == 0) getWidgets().removeFirst();
+        if (getWidgets().getFirst().opacity() == 0) getWidgets().removeFirst();
         int x = 0;
         for (Widget<?> widget : getWidgets()) {
             if (!(widget instanceof ReportWidget rw)) continue;
@@ -106,9 +97,9 @@ public class ReportOverlayFeature extends Feature implements RenderedFeature, Pa
             if (rw != getWidgets().getFirst()) rw.withOpacity(1, false);
             else if (rw.opacity() != 0) rw.withOpacity(255, false);
             if (getWidgets().getFirst().opacity() == 0 && getWidgets().size() > 1 && getWidgets().get(1) == rw) rw.withOpacity(255, false);
-            if (rw.opacity() != 0) x += rw.renderedWidth() + 4;
+            if (rw.opacity() != 0) x += rw.width() + 4;
         }
-        if (ModUtilsConfig.config.useReportDisplay.get()) renderWidgets(context, mouseX, mouseY, renderedOpacity());
+        if (ModUtilsConfig.config.useReportDisplay.get()) renderChildren(context, mouseX, mouseY);
     }
 
     @Override
@@ -117,13 +108,13 @@ public class ReportOverlayFeature extends Feature implements RenderedFeature, Pa
     }
 
     @Override
-    public RenderedFeature getThis() {
+    public ReportOverlayFeature getWidget() {
         return this;
     }
 
     @Override
     public void onKeyBindPress(KeyBinding keyBind) {
-        if (keyBind.equals(ModUtilsKeyBinds.DISMISS_REPORT) && !getWidgets().isEmpty() && getWidgets().getFirst().renderedOpacity() >= 175) {
+        if (keyBind.equals(ModUtilsKeyBinds.DISMISS_REPORT) && !getWidgets().isEmpty() && getWidgets().getFirst().opacity() >= 175) {
             getWidgets().getFirst().withOpacity(0, false);
             ModUtilities.playSound(ModUtilsSounds.REPORT_DISMISS, 1f);
         }

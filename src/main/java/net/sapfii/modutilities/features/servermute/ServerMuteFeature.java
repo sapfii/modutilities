@@ -34,4 +34,9 @@ public class ServerMuteFeature extends Feature implements PacketListeningFeature
                 str.startsWith(FAWE2);
         return cancel ? PacketResult.CANCEL : PacketResult.PASS;
     }
+
+    @Override
+    public ServerMuteFeature getWidget() {
+        return this;
+    }
 }

@@ -6,42 +6,43 @@ import net.sapfii.modutilities.ModUtilities;
 import net.sapfii.modutilities.config.ModUtilsConfig;
 import net.sapfii.modutilities.config.enums.LogDirection;
 import net.velli.scelli.screen.WidgetContainerScreen;
-import net.velli.scelli.widget.WidgetPos;
-import net.velli.scelli.widget.widgets.TextWidget;
+import net.velli.scelli.widget.widgets.Alignment;
+import net.velli.scelli.widget.widgets.TextDisplayWidget;
 import net.velli.scelli.widget.widgets.Widget;
-import net.velli.scelli.widget.widgets.containers.ListWidget;
+import net.velli.scelli.widget.widgets.Widgets;
+import net.velli.scelli.widget.widgets.containers.VerticalListWidget;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LogScreen extends WidgetContainerScreen {
-    protected ListWidget list;
+    protected VerticalListWidget list;
 
     public LogScreen(List<Text> lines, Text header) {
         super(null);
-        list = ListWidget.create()
-                .withAlignment(WidgetPos.Alignment.CENTER)
+        list = Widgets.create(VerticalListWidget::new)
+                .withAlignment(Alignment.CENTER)
                 .withDimensions(
                         ModUtilities.MC.getWindow().getScaledWidth() - 150,
                         ModUtilities.MC.getWindow().getScaledHeight() - 50,
                         true);
         if (ModUtilsConfig.config.logDirection.is(LogDirection.UP)) lines = lines.reversed();
         List<Widget<?>> screenLines = new ArrayList<>(List.of(
-                TextWidget.create().withText(header).withAlignment(TextWidget.TextAlignment.CENTER),
-                TextWidget.create()
+                Widgets.create(TextDisplayWidget::new).setLines(header).withAlignment(Alignment.CENTER),
+                Widgets.create(TextDisplayWidget::new)
         ));
-        lines.forEach(line -> screenLines.add(TextWidget.create().withText(line)));
-        screenLines.add(TextWidget.create());
-        screenLines.add(TextWidget.create().withText(header).withAlignment(TextWidget.TextAlignment.CENTER));
-        list.addWidgets(screenLines);
+        lines.forEach(line -> screenLines.add(Widgets.create(TextDisplayWidget::new).setLines(line)));
+        screenLines.add(Widgets.create(TextDisplayWidget::new));
+        screenLines.add(Widgets.create(TextDisplayWidget::new).setLines(header).withAlignment(Alignment.CENTER));
+        screenLines.forEach(line -> list.addWidgets(line));
         list.withPosition(0, 500, true);
         list.withPosition(0, 0, false);
-        addWidget(list);
+        addWidgets(list);
     }
 
     @Override
-    public void resize(MinecraftClient client, int width, int height) {
+    public void resize(int width, int height) {
         list.withDimensions(ModUtilities.MC.getWindow().getScaledWidth() - 150, ModUtilities.MC.getWindow().getScaledHeight() - 50, true);
-        super.resize(client, width, height);
+        super.resize(width, height);
     }
 }

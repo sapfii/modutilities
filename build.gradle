@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.12-SNAPSHOT'
+    id 'fabric-loom' version '1.13-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -30,6 +30,11 @@ repositories {
         name = "Modrinth"
         url = "https://api.modrinth.com/maven"
     }
+    // HttpClient
+    maven {
+        name = "Apache"
+        url = "https://maven.apache.org"
+    }
 }
 
 dependencies {
@@ -39,9 +44,11 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    implementation("org.apache.httpcomponents:httpclient:4.5.13")
 
     // Screens Library
-    modImplementation("maven.modrinth:scelli:${project.scelli_version}")
+//    modImplementation("maven.modrinth:scelli:${project.scelli_version}")
+    modImplementation(name: "Scelli-${project.scelli_version}")
 
     // ModMenu
     modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")

@@ -54,7 +54,7 @@ public class ModUtilities implements ClientModInitializer {
     }
 
     public static void playSound(SoundEvent sound, float pitch) {
-        MC.getSoundManager().play(PositionedSoundInstance.master(sound, pitch));
+        MC.getSoundManager().play(PositionedSoundInstance.ui(sound, pitch));
     }
 
     public static void sendCommand(String command) {

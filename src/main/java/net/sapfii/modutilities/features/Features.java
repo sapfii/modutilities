@@ -27,19 +27,19 @@ public class Features {
 
     private static void render(DrawContext context, RenderTickCounter renderTickCounter) {
         MinecraftClient MC = ModUtilities.MC;
-        float mouseX = MC.currentScreen instanceof ChatScreen ? (float) MC.mouse.getScaledX(MC.getWindow()) : 0;
-        float mouseY = MC.currentScreen instanceof ChatScreen ? (float) MC.mouse.getScaledY(MC.getWindow()) : 0;
+        int mouseX = MC.currentScreen instanceof ChatScreen ? (int) MC.mouse.getScaledX(MC.getWindow()) : 0;
+        int mouseY = MC.currentScreen instanceof ChatScreen ? (int) MC.mouse.getScaledY(MC.getWindow()) : 0;
         for (Feature feature : Features.registeredFeatures()) {
             if (feature instanceof RenderedFeature rf) {
                 rf.render(context, mouseX, mouseY);
-                rf.hoverWidgets(mouseX, mouseY, true);
+                rf.hover(mouseX, mouseY, true);
             }
         }
     }
 
-    public static void onClick(float mouseX, float mouseY) {
+    public static void onClick(int mouseX, int mouseY) {
         for (Feature feature : Features.registeredFeatures()) {
-            if (feature instanceof RenderedFeature rf) rf.onClick(mouseX, mouseY, true);
+            if (feature instanceof RenderedFeature rf) rf.onClick(mouseX, mouseY);
         }
     }
 

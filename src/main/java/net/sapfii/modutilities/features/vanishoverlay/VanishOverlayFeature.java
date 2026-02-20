@@ -14,6 +14,7 @@ import net.sapfii.modutilities.features.Feature;
 import net.sapfii.modutilities.features.interfaces.CommandListeningFeature;
 import net.sapfii.modutilities.features.interfaces.PacketListeningFeature;
 import net.sapfii.modutilities.features.interfaces.RenderedFeature;
+import net.velli.scelli.Scelli;
 import net.velli.scelli.widget.widgets.Widget;
 
 import java.util.List;
@@ -100,10 +101,11 @@ public class VanishOverlayFeature extends Feature implements RenderedFeature, Pa
     }
 
     @Override
-    public void render(DrawContext context, float mouseX, float mouseY) {
+    public void renderMain(DrawContext context, int mouseX, int mouseY, float delta) {
+        withDimensions(Scelli.MC.getWindow().getScaledWidth(), Scelli.MC.getWindow().getScaledHeight(), true);
         if (!VanishMode.is(VanishMode.NONE)) widget.withPosition(5, 0, false);
         else widget.withPosition(5, -20, false);
-        if (ModUtilsConfig.config.useVanishDisplay.get()) renderWidgets(context, mouseX, mouseY, 255);
+        if (ModUtilsConfig.config.useVanishDisplay.get()) renderWidget(widget, context, mouseX, mouseY);
     }
 
     @Override
@@ -112,7 +114,7 @@ public class VanishOverlayFeature extends Feature implements RenderedFeature, Pa
     }
 
     @Override
-    public RenderedFeature getThis() {
+    public VanishOverlayFeature getWidget() {
         return this;
     }
 }

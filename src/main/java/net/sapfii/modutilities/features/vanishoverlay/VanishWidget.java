@@ -4,15 +4,17 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 import net.sapfii.modutilities.ModUtilities;
-import net.velli.scelli.widget.interfaces.WidgetContainer;
-import net.velli.scelli.widget.widgets.TextWidget;
+import net.velli.scelli.Scelli;
+import net.velli.scelli.widget.widgets.TextDisplayWidget;
 import net.velli.scelli.widget.widgets.Widget;
+import net.velli.scelli.widget.widgets.Widgets;
+import net.velli.scelli.widget.widgets.containers.ContainerWidget;
 
 import java.util.List;
 
-public class VanishWidget extends Widget<VanishWidget> implements WidgetContainer<VanishWidget> {
+public class VanishWidget extends ContainerWidget<VanishWidget> {
 
-    protected final TextWidget textDisplay = TextWidget.create();
+    protected final TextDisplayWidget textDisplay = Widgets.create(TextDisplayWidget::new);
 
     public static VanishWidget create() {
         return new VanishWidget();
@@ -22,18 +24,18 @@ public class VanishWidget extends Widget<VanishWidget> implements WidgetContaine
     private static int bgColor = 0x66000000;
 
     @Override
-    protected void render(DrawContext context, float mouseX, float mouseY, int opacity, float delta) {
+    public void renderMain(DrawContext context, int mouseX, int mouseY, float delta) {
         TextRenderer textRenderer = ModUtilities.MC.textRenderer;
         if (VanishMode.is(VanishMode.ADMIN)) vanishText = Text.literal("Admin").withColor(0xFF0000).append(Text.literal(" Vanish"));
         if (VanishMode.is(VanishMode.ADMIN)) bgColor = 0x66DD0023;
         if (VanishMode.is(VanishMode.MOD)) vanishText = Text.literal("Mod").withColor(0x00FF00).append(Text.literal(" Vanish"));
         if (VanishMode.is(VanishMode.MOD)) bgColor = 0x6623DD00;
         textDisplay.withPosition(2, 5, true);
-        textDisplay.withDimensions(textRenderer.getWidth(vanishText), 16, true);
-        textDisplay.withText(vanishText);
+        textDisplay.withDimensions(width(), 16, true);
+        textDisplay.setLines(vanishText);
         withDimensions(textRenderer.getWidth(vanishText) + 4, 16, true);
-        context.fill(0, 0, renderedWidth(), renderedHeight(), bgColor);
-        renderWidgets(context, mouseX, mouseY, opacity);
+        context.fill(0, 0, width(), height(), bgColor);
+        renderChildren(context, mouseX, mouseY);
     }
 
     @Override
@@ -42,7 +44,7 @@ public class VanishWidget extends Widget<VanishWidget> implements WidgetContaine
     }
 
     @Override
-    public VanishWidget getThis() {
+    public VanishWidget getWidget() {
         return this;
     }
 }

@@ -38,4 +38,9 @@ public class TPRepeatFeature extends Feature implements CommandListeningFeature,
             }
         }
     }
+
+    @Override
+    public TPRepeatFeature getWidget() {
+        return this;
+    }
 }

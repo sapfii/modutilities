@@ -43,11 +43,16 @@ public class SetRankAutocompleteFeature extends Feature implements PacketListeni
                 HoverEvent.ShowText text = new HoverEvent.ShowText(Text.literal("hi"));
                 if (sibling.getStyle().getHoverEvent() instanceof HoverEvent.ShowText(Text value)) {
                     String code = Objects.requireNonNull(value.getString());
-                    ScreenHandler.openScreen(new ChatScreen("/" + lastCommand + " " + code));
+                    ScreenHandler.openScreen(new ChatScreen("/" + lastCommand + " " + code, false));
                 }
             }
         }
         awaitingCode = false;
         return PacketResult.PASS;
+    }
+
+    @Override
+    public SetRankAutocompleteFeature getWidget() {
+        return this;
     }
 }
