@@ -1,5 +1,6 @@
 package net.sapfii.modutilities.features.logscreen;
 
+import com.terraformersmc.modmenu.util.mod.Mod;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -34,7 +35,8 @@ public class LogScreen extends WidgetContainerScreen {
                 .withDimensions(
                         ModUtilities.MC.getWindow().getScaledWidth() - 150,
                         ModUtilities.MC.getWindow().getScaledHeight() - 50,
-                        true);
+                        true)
+                .withPadding(2, 10,2, 2);
         list.withPosition(0, 500, true);
         list.withPosition(0, 0, false);
     }
@@ -53,8 +55,11 @@ public class LogScreen extends WidgetContainerScreen {
 
     public void updateText() {
         list.clearWidgets();
+        list.reversed = false;
+        if (ModUtilsConfig.config.logDirection.is(LogDirection.DOWN)) {
+            list.reversed = true;
+        }
         List<Widget<?>> screenLines = new ArrayList<>(List.of(
-                Widgets.create(TextDisplayWidget::new, 0, 0, 0, 16),
                 Widgets.create(TextDisplayWidget::new, 0, 0, 300, 9).setLines(header).withTextAlignment(Alignment.CENTER),
                 Widgets.create(TextDisplayWidget::new)
         ));

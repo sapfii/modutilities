@@ -29,7 +29,7 @@ public class ReportWidget extends ContainerWidget<ReportWidget> {
     @Override
     public void renderMain(DrawContext context, int mouseX, int mouseY, float delta) {
         updateText();
-        withDimensions(width(), textDisplay.height() + 6, true);
+        withDimensions(width(), textDisplay.height() + 3, true);
         textDisplay.withPosition(3, 3, true);
         context.fill(0, 0, width(), height(), 0x66000000);
         renderChildren(context, mouseX, mouseY);
