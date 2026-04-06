@@ -43,6 +43,7 @@ public class VanishOverlayFeature extends Feature implements RenderedFeature, Pa
         if (!(packet instanceof GameMessageS2CPacket(Text msgText, boolean overlay))) return PacketResult.PASS;
         String string = msgText.getString();
         if (string.matches(ADMINV_REMINDER)) {
+            System.out.println(msgText);
             VanishMode.set(VanishMode.ADMIN);
             return ModUtilsConfig.config.useVanishDisplay.get() ? PacketResult.CANCEL : PacketResult.PASS;
         } else if (string.matches(ENTERED_VANISH) || string.matches(EXITED_VANISH)
