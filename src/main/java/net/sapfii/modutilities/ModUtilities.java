@@ -6,15 +6,7 @@ import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.sapfii.modutilities.commands.ModUtilsCommands;
-import net.sapfii.modutilities.config.ConfigOption;
 import net.sapfii.modutilities.config.ModUtilsConfig;
-import net.sapfii.modutilities.features.Features;
-import net.sapfii.modutilities.features.logscreen.LogScreenFeature;
-import net.sapfii.modutilities.features.reportoverlay.ReportOverlayFeature;
-import net.sapfii.modutilities.features.servermute.ServerMuteFeature;
-import net.sapfii.modutilities.features.setrankautocomplete.SetRankAutocompleteFeature;
-import net.sapfii.modutilities.features.tprepeat.TPRepeatFeature;
-import net.sapfii.modutilities.features.vanishoverlay.VanishOverlayFeature;
 import net.sapfii.modutilities.keybinds.ModUtilsKeyBinds;
 import net.sapfii.modutilities.sounds.ModUtilsSounds;
 import org.slf4j.Logger;
@@ -34,17 +26,6 @@ public class ModUtilities implements ClientModInitializer {
         ModUtilsCommands.init();
         ModUtilsSounds.init();
         ModUtilsKeyBinds.init();
-
-        Features.registerFeatures(
-                new ReportOverlayFeature(),
-                new VanishOverlayFeature(),
-                new ServerMuteFeature(),
-                new TPRepeatFeature(),
-                new SetRankAutocompleteFeature(),
-                new LogScreenFeature()
-        );
-
-        Features.init();
 
         LOGGER.info("ogfh... im modding it... modding it!");
     }
